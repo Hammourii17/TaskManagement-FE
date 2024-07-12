@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../../features/api/apiSlice';
-import { logout } from '../../features/auth/authSlice';
+import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -10,11 +10,14 @@ const Login = () => {
   const [error, setError] = useState('');
   const [login, { isLoading }] = useLoginMutation();
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      await login({ email, password }).unwrap();
+      const userData = await login({ email, password }).unwrap();
+      localStorage.setItem('token', userData.token);
+      history.push('/tasks');
     } catch (err) {
       setError('Invalid email or password');
     }

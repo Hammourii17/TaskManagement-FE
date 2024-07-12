@@ -1,19 +1,18 @@
 // src/components/Auth/Signup.js
 import React from 'react';
 import { useForm } from 'react-hook-form';
-import { useDispatch } from 'react-redux';
 import { useSignupMutation } from '../../features/api/apiSlice';
-import { logout } from '../../features/auth/authSlice';
+import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
-  const dispatch = useDispatch();
   const { register, handleSubmit, formState: { errors } } = useForm();
   const [signup, { isLoading, isError, error }] = useSignupMutation();
+  const history = useHistory();
 
   const onSubmit = async (data) => {
     try {
       await signup(data).unwrap();
-      dispatch(logout());
+      history.push('/login');
     } catch (err) {
       console.error('Failed to signup', err);
     }
