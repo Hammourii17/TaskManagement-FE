@@ -1,4 +1,3 @@
-// src/features/api/apiSlice.js
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 const baseQuery = fetchBaseQuery({
@@ -46,6 +45,13 @@ export const apiSlice = createApi({
         method: 'DELETE',
       }),
     }),
+    updateTask: builder.mutation({
+      query: ({ id, ...task }) => ({
+        url: `tasks/${id}`,
+        method: 'PUT',
+        body: task,
+      }),
+    }),
   }),
 });
 
@@ -55,4 +61,5 @@ export const {
   useFetchTasksQuery,
   useAddTaskMutation,
   useDeleteTaskMutation,
+  useUpdateTaskMutation,
 } = apiSlice;
