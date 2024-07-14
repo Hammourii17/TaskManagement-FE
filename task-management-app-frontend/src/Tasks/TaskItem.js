@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDeleteTaskMutation, useUpdateTaskMutation } from '../../features/api/apiSlice';
+import { useDeleteTaskMutation, useUpdateTaskMutation } from '../features/api/apiSlice';
 
 const TaskItem = ({ task }) => {
   const [deleteTask] = useDeleteTaskMutation();

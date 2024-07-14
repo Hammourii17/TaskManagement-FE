@@ -1,26 +1,29 @@
-import React, { useState } from 'react';
+// src/components/Auth/Login.js
+import React, { useState, useCallback } from 'react';
 import { useDispatch } from 'react-redux';
-import { useLoginMutation } from '../../features/api/apiSlice';
+import { useLoginMutation } from '../features/api/apiSlice';
 import { useHistory } from 'react-router-dom';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
-  const [login, { isLoading }] = useLoginMutation();
+  const [login, { isLoading, isError, error }] = useLoginMutation();
   const dispatch = useDispatch();
   const history = useHistory();
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    try {
-      const userData = await login({ email, password }).unwrap();
-      localStorage.setItem('token', userData.token);
-      history.push('/tasks');
-    } catch (err) {
-      setError('Invalid email or password');
-    }
-  };
+  const handleLogin = useCallback(
+    async (e) => {
+      e.preventDefault();
+      try {
+        const userData = await login({ email, password }).unwrap();
+        localStorage.setItem('token', userData.token);
+        history.push('/tasks');
+      } catch (err) {
+        console.error('Login failed:', err);
+      }
+    },
+    [login, history]
+  );
 
   return (
     <div className="container mx-auto p-4">
@@ -46,7 +49,7 @@ const Login = () => {
             required
           />
         </div>
-        {error && <p className="text-red-500">{error}</p>}
+        {isError && <p className="text-red-500">{error}</p>}
         <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded" disabled={isLoading}>
           Login
         </button>

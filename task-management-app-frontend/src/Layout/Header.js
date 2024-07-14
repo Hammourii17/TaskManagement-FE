@@ -1,16 +1,16 @@
-
-import React from 'react';
+// src/components/Layout/Header.js
+import React, { useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { logout } from '../../features/auth/authSlice';
+import { logout } from '../features/auth/authSlice';
 import { Link } from 'react-router-dom';
 
 const Header = () => {
   const dispatch = useDispatch();
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
-  const handleLogout = () => {
+  const handleLogout = useCallback(() => {
     dispatch(logout());
-  };
+  }, [dispatch]);
 
   return (
     <header className="bg-gray-800 text-white p-4">

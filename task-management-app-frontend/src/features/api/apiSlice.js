@@ -63,3 +63,4 @@ export const {
   useDeleteTaskMutation,
   useUpdateTaskMutation,
 } = apiSlice;
+export default apiSlice;

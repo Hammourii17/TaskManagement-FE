@@ -1,6 +1,7 @@
-import React from 'react';
+// src/components/Auth/Signup.js
+import React, { useCallback } from 'react';
 import { useForm } from 'react-hook-form';
-import { useSignupMutation } from '../../features/api/apiSlice';
+import { useSignupMutation } from '../features/api/apiSlice';
 import { useHistory } from 'react-router-dom';
 
 const Signup = () => {
@@ -8,14 +9,17 @@ const Signup = () => {
   const [signup, { isLoading, isError, error }] = useSignupMutation();
   const history = useHistory();
 
-  const onSubmit = async (data) => {
-    try {
-      await signup(data).unwrap();
-      history.push('/login');
-    } catch (err) {
-      console.error('Failed to signup', err);
-    }
-  };
+  const onSubmit = useCallback(
+    async (data) => {
+      try {
+        await signup(data).unwrap();
+        history.push('/login');
+      } catch (err) {
+        console.error('Failed to signup', err);
+      }
+    },
+    [signup, history]
+  );
 
   return (
     <div className="container mx-auto p-4">
