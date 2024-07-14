@@ -1,16 +1,18 @@
-import { configureStore } from '@reduxjs/toolkit';
-import apiSlice from '../src/features/api/apiSlice';
-import authReducer from '../src/features/auth/authSlice';
-import tasksReducer from '../src/features/tasks/tasksSlice';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
+import App from './App';
+import store from './app/store';
+import './index.css';
 
-const store = configureStore({
-  reducer: {
-    [apiSlice.reducerPath]: apiSlice.reducer,
-    auth: authReducer,
-    tasks: tasksReducer,
-  },
-  middleware: (getDefaultMiddleware) =>
-    getDefaultMiddleware().concat(apiSlice.middleware),
-});
-
-export default store;
+ReactDOM.render(
+  <React.StrictMode>
+    <Provider store={store}>
+      <Router>
+        <App />
+      </Router>
+    </Provider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);

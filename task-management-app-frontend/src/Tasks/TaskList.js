@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useFetchTasksQuery } from '../../features/api/apiSlice';
+import { useFetchTasksQuery } from '../features/api/apiSlice';
 import TaskItem from './TaskItem';
 
 const TaskList = () => {
