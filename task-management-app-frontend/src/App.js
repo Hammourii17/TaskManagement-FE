@@ -1,9 +1,9 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Header from './Layout/Header';
-import Footer from './Layout/Footer';
-import Login from './Auth/Login';
-import Signup from './Auth/Signup';
+import Header from './layout/Header';
+import Footer from './layout/Footer';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
 import TaskList from './Tasks/TaskList';
 import TaskForm from './Tasks/TaskForm';
 import './App.css';
