@@ -1,12 +1,12 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import Login from './Auth/Login';
-import Signup from './Auth/Signup';
+import Login from './auth/Login';
+import Signup from './auth/Signup';
 import TaskList from './Tasks/TaskList';
 import TaskForm from './Tasks/TaskForm';
-import Header from './Layout/Header';
-import Footer from './Layout/Footer';
+import Header from './layout/Header';
+import Footer from './layout/Footer';
 
 const ProtectedRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);

@@ -3,9 +3,11 @@ import { useFetchTasksQuery } from '../features/api/apiSlice';
 import TaskItem from './TaskItem';
 import { filterTasks, sortTasks } from '../utils/taskUtils';
 const TaskList = () => {
-  const { data: tasks = [], error, isLoading } = useFetchTasksQuery();
-  const [filter, setFilter] = useState('');
+  const { data: tasks = [], error, isLoading } = useFetchTasksQuery(filter , sortBy);
+  const [filter, setFilter] = useState({completed:'',dueDate:'',priority:''});
   const [sortBy, setSortBy] = useState('date');
+
+
   
   const filteredTasks = useMemo(() => filterTasks(tasks, filter), [tasks, filter]);
   const sortedTasks = useMemo(() => sortTasks(filteredTasks, sortBy), [filteredTasks, sortBy]);
