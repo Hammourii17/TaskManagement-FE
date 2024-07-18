@@ -26,7 +26,7 @@ const Signup = () => {
       <h2 className="text-2xl mb-4">Signup</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-4">
-          <label className="block text-gray-700">Username:</label>
+          <label className="block text-gray-700 ">Username:</label>
           <input
             type="text"
             {...register('username', { required: 'Username is required' })}

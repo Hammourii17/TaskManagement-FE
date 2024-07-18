@@ -1,6 +1,4 @@
-// src/components/Auth/Login.js
 import React, { useState, useCallback } from 'react';
-import { useDispatch } from 'react-redux';
 import { useLoginMutation } from '../features/api/apiSlice';
 import { useHistory } from 'react-router-dom';
 
@@ -8,7 +6,6 @@ const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [login, { isLoading, isError, error }] = useLoginMutation();
-  const dispatch = useDispatch();
   const history = useHistory();
 
   const handleLogin = useCallback(
@@ -22,7 +19,7 @@ const Login = () => {
         console.error('Login failed:', err);
       }
     },
-    [login, history]
+    [login, history,email,password]
   );
 
   return (
