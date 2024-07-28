@@ -28,6 +28,10 @@ const TaskList = () => {
     refetch();
   }, [refetch]);
 
+  const handleTaskUpdated = useCallback(() => {
+    refetch();
+  }, [refetch]);
+
   if (isLoading) {
     return <Typography>Loading tasks...</Typography>;
   }
@@ -84,7 +88,7 @@ const TaskList = () => {
             </Grid>
             <Box>
               {sortedTasks.map(task => (
-                <TaskItem key={task._id} task={task} />
+                <TaskItem key={task._id} task={task} onTaskUpdated={handleTaskUpdated} />
               ))}
             </Box>
           </Box>

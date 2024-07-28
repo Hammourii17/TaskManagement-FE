@@ -1,13 +1,13 @@
 import React, { useState } from 'react';
 import { useDeleteTaskMutation, useUpdateTaskMutation } from '../features/api/apiSlice';
 
-const TaskItem = ({ task }) => {
+const TaskItem = ({ task, onTaskUpdated }) => {
   const [deleteTask] = useDeleteTaskMutation();
   const [updateTask] = useUpdateTaskMutation();
   const [isEditing, setIsEditing] = useState(false);
   const [title, setTitle] = useState(task.title);
   const [description, setDescription] = useState(task.description);
-  const [dueDate, setDueDate] = useState(task.dueDate || '');
+  const [dueDate, setDueDate] = useState(task.dueDate ? new Date(task.dueDate).toISOString().split('T')[0] : '');
   const [priority, setPriority] = useState(task.priority || 'Low');
   const [completed, setCompleted] = useState(task.completed);
   const [error, setError] = useState('');
@@ -15,6 +15,7 @@ const TaskItem = ({ task }) => {
   const handleDelete = async () => {
     try {
       await deleteTask(task._id).unwrap();
+      onTaskUpdated();
     } catch (err) {
       console.error('Failed to delete task', err);
     }
@@ -25,6 +26,7 @@ const TaskItem = ({ task }) => {
     try {
       await updateTask({ id: task._id, title, description, dueDate, priority, completed }).unwrap();
       setIsEditing(false);
+      onTaskUpdated();
     } catch (err) {
       setError('Failed to update task');
       console.error('Failed to update task', err);
@@ -35,6 +37,7 @@ const TaskItem = ({ task }) => {
     try {
       await updateTask({ id: task._id, completed: !completed }).unwrap();
       setCompleted(!completed);
+      onTaskUpdated();
     } catch (err) {
       console.error('Failed to update task', err);
     }
@@ -100,7 +103,7 @@ const TaskItem = ({ task }) => {
         <>
           <h3 className="text-xl">{task.title}</h3>
           <p>{task.description}</p>
-          <p>Due Date: {new Date(task.dueDate).toLocaleDateString()}</p>
+          <p>Due Date: {task.dueDate ? new Date(task.dueDate).toLocaleDateString() : 'Invalid Date'}</p>
           <p>Priority: {task.priority}</p>
           <button
             onClick={() => setIsEditing(true)}
