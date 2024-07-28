@@ -15,7 +15,7 @@ const TaskForm = ({ onTaskCreated }) => {
         setTitle('');
         setDescription('');
         onTaskCreated();
-        console.log('Task created', newTask);
+        console.log('Task created succesfully', newTask);
       } catch (err) {
 
         console.error('Failed to create task:', err);
